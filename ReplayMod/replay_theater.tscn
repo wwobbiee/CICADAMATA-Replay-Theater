@@ -1,0 +1,424 @@
+[gd_scene format=3 uid="uid://blnvnve08lhf6"]
+
+[ext_resource type="PackedScene" uid="uid://cmxg63ycatagv" path="res://Scenes/ReplayMod/ghost_rig_bunnyGal.tscn" id="1_6c2px"]
+[ext_resource type="Script" uid="uid://bcys74itw1gei" path="res://Scenes/ReplayMod/replay_theater.gd" id="1_856c2"]
+[ext_resource type="PackedScene" uid="uid://cmj4ue7bsd6kl" path="res://Scenes/ReplayMod/ghost_rig_player.tscn" id="2_856c2"]
+[ext_resource type="Script" uid="uid://c403sd6palepl" path="res://Scenes/ReplayMod/replay_hud.gd" id="4_11kx3"]
+[ext_resource type="Theme" uid="uid://ttdqpy6fk0fo" path="res://Scenes/ReplayMod/replay_mod_theme.tres" id="4_nlh8f"]
+[ext_resource type="Script" uid="uid://dvu3nw0ddye8j" path="res://Scenes/ReplayMod/event_track.gd" id="6_7tku6"]
+
+[node name="ReplayTheater" type="Node3D" unique_id=696148089]
+script = ExtResource("1_856c2")
+
+[node name="GhostRig" type="Node3D" parent="." unique_id=183593989]
+
+[node name="BunnyGal" parent="GhostRig" unique_id=1109109819 instance=ExtResource("1_6c2px")]
+
+[node name="ReplayPovCamera" type="Camera3D" parent="GhostRig/BunnyGal" unique_id=1160916835]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.663, 1.193)
+
+[node name="ReplayGhostPlayer" parent="GhostRig" unique_id=527417944 instance=ExtResource("2_856c2")]
+
+[node name="ReplayFreeCamera" type="Camera3D" parent="." unique_id=1404556900]
+
+[node name="ReplayPathLine" type="MeshInstance3D" parent="." unique_id=472299037]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1506914125]
+layer = 16
+
+[node name="ReplayHud" type="Control" parent="CanvasLayer" unique_id=717298612]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme = ExtResource("4_nlh8f")
+script = ExtResource("4_11kx3")
+theater = NodePath("../..")
+
+[node name="OptionButtonContainer" type="PanelContainer" parent="CanvasLayer/ReplayHud" unique_id=962515555]
+layout_mode = 0
+offset_right = 76.0
+offset_bottom = 52.0
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/ReplayHud/OptionButtonContainer" unique_id=1278235438]
+layout_mode = 2
+
+[node name="ReplayCameraButton" type="Button" parent="CanvasLayer/ReplayHud/OptionButtonContainer/HBoxContainer" unique_id=943209508]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ReplayPickerButton" type="Button" parent="CanvasLayer/ReplayHud/OptionButtonContainer/HBoxContainer" unique_id=1188916351]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Replay"
+
+[node name="ReplayExitButton" type="Button" parent="CanvasLayer/ReplayHud/OptionButtonContainer/HBoxContainer" unique_id=112384853]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Exit"
+
+[node name="TopBar" type="PanelContainer" parent="CanvasLayer/ReplayHud" unique_id=1673252170]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -65.0
+offset_right = 65.0
+offset_bottom = 98.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/ReplayHud/TopBar" unique_id=763989366]
+layout_mode = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CanvasLayer/ReplayHud/TopBar/MarginContainer" unique_id=195916784]
+layout_mode = 2
+
+[node name="ReplayLevelLabel" type="Label" parent="CanvasLayer/ReplayHud/TopBar/MarginContainer/HBoxContainer" unique_id=1212723277]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="CanvasLayer/ReplayHud/TopBar/MarginContainer/HBoxContainer" unique_id=1764876341]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ReplayTimeLabel" type="Label" parent="CanvasLayer/ReplayHud/TopBar/MarginContainer/HBoxContainer" unique_id=546183187]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CenterOverlay" type="Control" parent="CanvasLayer/ReplayHud" unique_id=1929503670]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ReplayEventToast" type="Label" parent="CanvasLayer/ReplayHud/CenterOverlay" unique_id=845812713]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -187.76501
+offset_right = 20.0
+offset_bottom = -153.76471
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.3019608)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+
+[node name="BottomBar" type="PanelContainer" parent="CanvasLayer/ReplayHud" unique_id=2103467515]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -180.5
+offset_top = -145.0
+offset_right = 180.5
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/ReplayHud/BottomBar" unique_id=529686225]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer" unique_id=45137084]
+layout_mode = 2
+
+[node name="TimelineRow" type="HBoxContainer" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer" unique_id=861906625]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ReplayCurrentTime" type="Label" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer/TimelineRow" unique_id=1993620201]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -5)
+vertical_alignment = 1
+
+[node name="TimelineStack" type="VBoxContainer" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer/TimelineRow" unique_id=2002191308]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="ReplayEventTrack" type="Control" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer/TimelineRow/TimelineStack" unique_id=122125815]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("6_7tku6")
+
+[node name="ReplayScrubBar" type="HSlider" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer/TimelineRow/TimelineStack" unique_id=1988132365]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ReplayTotalTime" type="Label" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer/TimelineRow" unique_id=1245137789]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -5)
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ControlsRow" type="HBoxContainer" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer" unique_id=345728908]
+layout_mode = 2
+
+[node name="SpeedSection" type="HBoxContainer" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer/ControlsRow" unique_id=545199006]
+layout_mode = 2
+
+[node name="ReplaySpeedDown" type="Button" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer/ControlsRow/SpeedSection" unique_id=1766473230]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Decrease Speed"
+text = "-"
+
+[node name="ReplaySpeedLabel" type="Label" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer/ControlsRow/SpeedSection" unique_id=1063467601]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ReplaySpeedUp" type="Button" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer/ControlsRow/SpeedSection" unique_id=1357794816]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Increase Speed"
+text = "+"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer/ControlsRow" unique_id=1211077542]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ReplayPrevEvent" type="Button" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer/ControlsRow" unique_id=1046838539]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Previous Event"
+text = "<"
+
+[node name="Spacer4" type="Control" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer/ControlsRow" unique_id=559568659]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ReplayPlayPause" type="Button" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer/ControlsRow" unique_id=683021408]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+tooltip_text = "Play / Pause"
+
+[node name="Spacer3" type="Control" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer/ControlsRow" unique_id=741369848]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ReplayNextEvent" type="Button" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer/ControlsRow" unique_id=1727399208]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Next Event"
+text = ">"
+
+[node name="Spacer2" type="Control" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer/ControlsRow" unique_id=1505794434]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ReplaySpeedPresets" type="HBoxContainer" parent="CanvasLayer/ReplayHud/BottomBar/MarginContainer/VBoxContainer/ControlsRow" unique_id=1940522066]
+unique_name_in_owner = true
+editor_description = "Container for preset speed buttons. Initialized in replay_theater.gd _ready() func"
+layout_mode = 2
+
+[node name="ReplayKeyHintsContainer" type="FoldableContainer" parent="CanvasLayer/ReplayHud" unique_id=258520630]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -518.0
+offset_bottom = 279.0
+grow_horizontal = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer" unique_id=363464685]
+layout_mode = 2
+
+[node name="ReplayKeyHints" type="VBoxContainer" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer" unique_id=1023084507]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="SpaceKeyHelp" type="HBoxContainer" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints" unique_id=783336907]
+layout_mode = 2
+
+[node name="SpaceKeyIcon" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints/SpaceKeyHelp" unique_id=853476031]
+layout_mode = 2
+text = "[Space]"
+
+[node name="SpaceKeyLabel" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints/SpaceKeyHelp" unique_id=501559799]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Play / Pause"
+horizontal_alignment = 2
+
+[node name="SeekKeyHelp" type="HBoxContainer" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints" unique_id=1714896520]
+layout_mode = 2
+
+[node name="SeekIcon" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints/SeekKeyHelp" unique_id=880831760]
+layout_mode = 2
+text = "[← / →]"
+
+[node name="SeekLabel" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints/SeekKeyHelp" unique_id=1283230785]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Seek ± 5 seconds"
+horizontal_alignment = 2
+
+[node name="JumpEventHelp" type="HBoxContainer" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints" unique_id=1910790982]
+layout_mode = 2
+
+[node name="JumpEventIcon" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints/JumpEventHelp" unique_id=1834529420]
+layout_mode = 2
+text = "[Shift] + [← / →]"
+
+[node name="JumpEventLabel" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints/JumpEventHelp" unique_id=426459429]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Jump to event"
+horizontal_alignment = 2
+
+[node name="SpeedHelp" type="HBoxContainer" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints" unique_id=1577240932]
+layout_mode = 2
+
+[node name="SpeedIcon" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints/SpeedHelp" unique_id=452214173]
+layout_mode = 2
+text = "[, / .]"
+
+[node name="SpeedLabel" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints/SpeedHelp" unique_id=1262327307]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Speed down / up"
+horizontal_alignment = 2
+
+[node name="FreeCamHelp" type="HBoxContainer" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints" unique_id=1525669889]
+layout_mode = 2
+
+[node name="FreeCamIcon" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints/FreeCamHelp" unique_id=2014769709]
+layout_mode = 2
+text = "[F]"
+
+[node name="FreeCamLabel" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints/FreeCamHelp" unique_id=1364269873]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Toggle Camera"
+horizontal_alignment = 2
+
+[node name="HideHudHelp" type="HBoxContainer" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints" unique_id=1671727460]
+layout_mode = 2
+
+[node name="HideHudIcon" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints/HideHudHelp" unique_id=2033613826]
+layout_mode = 2
+text = "[H]"
+
+[node name="HideHudLabel" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints/HideHudHelp" unique_id=702973199]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Toggle HUD"
+
+[node name="LoadReplayHelp" type="HBoxContainer" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints" unique_id=456851125]
+layout_mode = 2
+
+[node name="LoadReplayIcon" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints/LoadReplayHelp" unique_id=1360131298]
+layout_mode = 2
+text = "[P]"
+
+[node name="LoadReplayLabel" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayKeyHints/LoadReplayHelp" unique_id=1553934602]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Choose replay file"
+horizontal_alignment = 2
+
+[node name="ReplayCamHints" type="VBoxContainer" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer" unique_id=767484153]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MouseHint" type="HBoxContainer" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints" unique_id=396577755]
+layout_mode = 2
+
+[node name="FreeCamTitleLabel" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints/MouseHint" unique_id=2080217458]
+layout_mode = 2
+text = "Mouse Wheel Controls"
+
+[node name="FreeCamSpeedHelp" type="HBoxContainer" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints" unique_id=1436485830]
+layout_mode = 2
+
+[node name="FreeCamSpeedIcon" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints/FreeCamSpeedHelp" unique_id=1171958937]
+layout_mode = 2
+text = "[↑ / ↓]"
+
+[node name="FreeCamSpeedLabel" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints/FreeCamSpeedHelp" unique_id=441199820]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Free Cam Speed"
+horizontal_alignment = 2
+
+[node name="FreeCamMouseHelp" type="HBoxContainer" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints" unique_id=149699987]
+layout_mode = 2
+
+[node name="MouseHintIcon" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints/FreeCamMouseHelp" unique_id=1184165352]
+layout_mode = 2
+text = "[Click]"
+
+[node name="MouseHintHelp" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints/FreeCamMouseHelp" unique_id=1940413587]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Free Mouse"
+horizontal_alignment = 2
+
+[node name="KeyBoardHint" type="HBoxContainer" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints" unique_id=947357061]
+layout_mode = 2
+
+[node name="KeyBoardLabel" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints/KeyBoardHint" unique_id=83199168]
+layout_mode = 2
+text = "Keyboard Controls"
+
+[node name="KeyBoardHelp" type="HBoxContainer" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints" unique_id=1770601230]
+layout_mode = 2
+
+[node name="KeyBoardIcon" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints/KeyBoardHelp" unique_id=1667364153]
+layout_mode = 2
+text = "[WASD]"
+
+[node name="KeyBoardLabel" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints/KeyBoardHelp" unique_id=1638515054]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Move around"
+horizontal_alignment = 2
+
+[node name="KeyBoardUpDownHelp" type="HBoxContainer" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints" unique_id=1894417180]
+layout_mode = 2
+
+[node name="UpIcon" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints/KeyBoardUpDownHelp" unique_id=621038131]
+layout_mode = 2
+text = "[Space]"
+
+[node name="UpLabel" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints/KeyBoardUpDownHelp" unique_id=1964647166]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fly Up"
+horizontal_alignment = 2
+
+[node name="KeyBoardUpDownHelp2" type="HBoxContainer" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints" unique_id=478708157]
+layout_mode = 2
+
+[node name="DownIcon" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints/KeyBoardUpDownHelp2" unique_id=725649467]
+layout_mode = 2
+text = "[CTRL]"
+
+[node name="DownLabel" type="Label" parent="CanvasLayer/ReplayHud/ReplayKeyHintsContainer/PanelContainer/ReplayCamHints/KeyBoardUpDownHelp2" unique_id=1020997332]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fly Down"
+horizontal_alignment = 2

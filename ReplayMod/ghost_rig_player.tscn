@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cmj4ue7bsd6kl"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jau86"]
+
+[node name="GhostPlayer" type="AnimationPlayer" unique_id=527417944]
+libraries/ = SubResource("AnimationLibrary_jau86")
